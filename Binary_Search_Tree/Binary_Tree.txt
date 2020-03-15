@@ -1,0 +1,355 @@
+-->Unlabelled Nodes
+No. of possible trees with nodes avilable:
+T(n)=2nCn
+    ------
+     n+1
+
+Katalan Formula to find the no. of possible trees with nodes avilable:
+
+     n
+T(n)=ET(i-1)*T(n-i)
+    i=1
+
+-->Labelled Nodes
+no. of possible trees with nodes avilable:
+T(n)=2nCn
+    ------*n!
+     n+1    |
+     |      |
+     |      Filling
+     Shapes
+
+--->Binary Search Trees:
+---------------------------
+****What is BST?
+----------------------
+->It is a Binary Tree in which for every Node all the elements on left subtree are smaller than that Node and all the elements in Right subtree
+are greater than that node.
+                      30 <--Root Node
+                      /\
+                     /  \
+                    15   50
+                    /\    /\
+                   /  \  /  \
+                 10   20 40   60
+-->This Binary Tree is useful for searching the Nodes. That's why it is named as Binary Search Tree.
+Q) How it is searching?
+->Suppose we are searching key value 40, Then start from root Node. Compare if root Node(30) is greater than 40 or less than 40.
+->As 40 is greater than 30, then search on Right side of the Node. As the Node on Right Hand side is 50, and 40 is less than 50, then 
+search on Left Hand side of that element. Now Here 40 is found.
+-->It is useful for searching the elements in less number of comparison. So, this is more likely Binary Search which is applied on Array.
+But since Binary Search is applied on Binary Tree, It is called Binary Search Tree.
+
+==>Search Time depends upon Height of the Tree. 
+
+****Properties of Binary Search Tree:
+---------------------------------------------
+1. Binary Search Tree will not have duplicates.
+
+2. If we take "INORDER TRAVERSAL" of BST, we will get sorted order.
+If Applied Here: Left-Root-Right(LRR)
+10,15,20,30,40,50,60.
+-->Inorder gives sorted order.
+
+3. If we have some Nodes, then how many Binary Search Tree can be created for some set of Nodes.
+No. of BST for 'n' Nodes.
+
+       2nCn
+T(n)= ------ (Katalan Number)
+       n+1
+For 3 Nodes, 5 Trees are possible.
+
+--->Binary Search Tree is represented in "Linked Representation".
+
+4. Time taken to Search an element depends upon Height of a Tree. O(h)
+
+****Representation of Binary Search Tree:
+-------------------------------------------
+-->BST is represented using Linked Representation.
+
+****Searching in a BST:
+------------------------
+        30 <---Root/Temp
+        /\
+       /  \   
+      /    \
+     /      \
+    20      40
+    /\      /\
+   /  \    /  \
+  10  25  35  50
+
+  Suppose we have to serach Key:25.
+  Steps:
+  ->Take Temporary pointer at root of Nodes i.e 30
+  ->Compare root Node value to Key Value. If greater Root Value move to LHS.
+  ->Compare and Vice Versa.
+  
+  -->Maximum comparison for searching an element in a Tree = (h) Height of a Tree. So, time taken for seraching an element depends upon
+    height of a tree.
+    Time=O(h) =O(logn)
+
+-->If any key we want to search in a Tree and if it is not found and result in unsuccessful search, then also comparison is equal to height
+of a Tree.
+
+*****SEARCHING IN A BST:
+-->Recursive function for seraching in a Binary Search Tree:
+-----------------------------------------------------------
+struct Node* RSearch(struct Node* t, int key)       //Here this function will return Node where key is found
+    {
+        if(t==NULL) //Here root is NULL, Means here element is not found
+            return NULL;
+
+        if(key==t->data)    //If root's data is equal to the value of key, then return root Node.
+            return t;
+        else if(key<t->data)    //If key value is less then root's data then go to LHS
+            return RSearch(t->left, key);
+        else            //If key value is greater then root's data then go to RHS
+            return RSearch(t->right, key);
+    }
+->Here tail recursion is implemented for Binary Search:
+
+Tail recursion: (algorithmic technique)
+Definition: A special form of recursion where the last operation of a function is a recursive call.The recursion may be optimized away
+by executing the call in the current stack frame and returning its result rather than creating a new stack frame.
+
+-->Iterative function for seraching in a Binary Search Tree:
+------------------------------------------------------------
+struct Node* Search(struct Node* t, int key)
+    {
+        while(t!=NULL)
+        {
+        if(key==t->data)
+            return t;
+        else if(key<t->data)
+            t=t->left;
+        else
+            t=t->right;
+        }
+        return NULL;
+    }
+
+****INSERTING IN A BINARY SEARCH TREE:
+ 30 <---Root/Temp
+        /\
+       /  \   
+      /    \
+     /      \
+    20      40
+    /\      /\
+   /  \    /  \
+  10  25  35  50
+
+  Suppose Here we have to insert 38.
+  First Step for insertion is search for key value which is 38 in our example. If key value is already present in BST then no need to insert
+  that key value in our BST.
+  If key value is not present in BST after searching then we need insert the key value by creating node where our t pointer got NULL.
+  But we need a pointer on that node also after which our t pointer got NULL. So, we have to use a tail pointer p following t pointer.
+
+  void Insert(struct Node *t, int key)
+  {
+      struct Node* r=NULL, *p;  //Here r is tail pointer and p is a pointer with which we will create node
+      if(t==NULL)
+      {
+          t=(struct Node*)malloc(sizeof(struct Node));
+          t->data=key;
+          t->right=t->left=NULL;
+      }
+
+      while(t!=NULL)
+      {
+          r=t;  //tail pointer r follows t
+          if(key==t->data)
+            return;
+          else if(key<t->data)
+            t=t->left;
+          else
+            t=t->right;
+      }
+      p=(struct Node*) malloc (sizeof(struct Node));    //Creating a New Node p
+      p->data=key;      //Assigning key value to new node
+      p->left=p->right=NULL;    //Assigning NULL to left and right of new Node.
+      if(p->data<r->data)
+        r->left=p;
+      else
+        r->right=p;
+  }
+
+  -->So, Inserting is more like searching only. So, time taken is order of logn only or equal to height O(logn). 
+
+  ****RECURSIVE INSERT IN A BINARY SEARCH TREE:
+struct Node* Insert(struct Node *t, int key)
+  {
+      struct Node *p;  //Here r is tail pointer and p is a pointer with which we will create node
+      if(t==NULL)   //Here we are checking whether the key we are searching is present or not, if not(or NULL) is there then create a New Node.
+      {
+          p=(struct Node*)malloc(sizeof(struct Node));
+          p->data=key;
+          p->right=p->left=NULL;
+          return p;
+      }
+      
+      if(key<t->data)
+        t->left= Insert(t->left, key);      //New Node is created and assigned as left child to parent node with recursive call
+      else if(key>t->data)
+        t->right= Insert(t->right, key);    //New Node is created and assigned as right child to parent node with recursive call
+
+    return t;
+  }
+
+int main()
+{
+    struct Node* Root=NULL;
+    Root=Insert(Root, 30);
+    Insert(Root, 20);
+    Insert(Root, 25);
+}
+
+****CREATING A BINARY SEARCH TREE:
+------------------------------------
+Example:
+Keys: 9, 15, 5, 20, 16, 8, 12, 3, 6
+
+                                                9 <------Root
+                                               / \
+                                              5   15
+                                              /\   /\
+                                             3  8 12 20
+                                                /    /
+                                               6    16 
+Time taken for creating a BST: Suppose we have inserted n elements, then we were searching it's position and inserting each elements in BST.
+insert - n
+searching - logn
+Time taken for creating BST: n*logn=O(nlogn)
+
+****DELETING IN BINARY SEARCH TREE:
+------------------------------------
+Suppose in below tree if we have to delete key=3, then
+                                                9 <------Root
+                                               / \
+                                              5   15
+                                              /\   /\
+                                             3  8 12 20
+                                                /    /
+                                               6    16 
+Inorder Traversal: 3 5 6 8  9  12 15 16 20
+Inorder predecessor (Rightmost child of left subtree): 8
+Inorder successor (Leftmost child of right subtree): 12
+
+We have to delete that particular node (Here in our case...3) and make parent left link or right link as NULL in case if that node has no
+children.
+But if the node which we want to delete has a child node then child node will take place of parent node.
+But if we want to delete Root node, then it's inorder predecessor or inorder successor will take it's place.
+Here in above example, Inorder predecessor= 8 and Inorder successor=12
+
+Q)How to find Inorder Predecessor?
+--->Rightmost child of left subtree is known as Inorder Predecessor.
+
+Q)How to find Inorder Successor?
+--->Leftmost child of Right subtree is known as Inorder Successor.
+
+Q) Which one to take from Inorder Predecessor and Inorder Successor from BST for replacement of Root Node, while deleting Root Node.
+--->Any of them either Inorder Predecessor or Inorder Successor can be taken for replacement of Root Node.
+
+Node that is to be deleted              Steps
+--------------------------              -------
+Node without children------------------>Delete Node and Parent link set as NULL
+Node with 1 children------------------->Delete Node and it's child will take place of that Node.
+***Node with 2 children---------------->Either Inoder Predecessor or Inorder Successor with modifications to children places. 
+Root Node------------------------------>Inorder predecessor or Inorder successor will take Node place.
+
+-->Time taken for deletion = Depends upon height of a Tree O(logn).
+-->No. of modifications = Depends upon height of a Tree O(logn).
+
+Code:
+struct Node* Delete(struct Node* t, int key)
+{
+    struct Node *q;
+    if(t==NULL)
+    return NULL;
+    if(t->Left_Smaller==NULL && t->Right_Greater==NULL)
+    {
+        if(t==Root)
+        Root=NULL;
+        free(t);
+        return NULL;
+    }
+    if(key < t->data)
+    t->Left_Smaller=Delete(t->Left_Smaller, key);
+    else if(key > t->data)
+    t->Right_Greater=Delete(t->Right_Greater, key);
+    else
+    {
+        if(Height(t->Left_Smaller)>Height(t->Right_Greater))
+        {
+        q=Inorder_Predecessor(t->Left_Smaller);
+        t->data=q->data;
+        t->Left_Smaller=Delete(t->Left_Smaller, q->data);
+        }
+        else
+        {
+        q=Inorder_Successor(t->Right_Greater);
+        t->data=q->data;
+        t->Right_Greater=Delete(t->Right_Greater, q->data);
+        }
+    }
+    
+return t;
+}
+
+****Generating BST from PreOrder:
+---------------------------------
+-->For generating a Binary Tree, we need any 2 Traversals and among that 1 of the Traversal must be Inorder
+Methods of Generating Binary Tree:
+1. PreOrder + InOrder
+2. PostOrder + InOrder
+
+For Generating a BST, if we are having a preorder and inorder or postorder and inorder then also we can generate BST. But in BST we can generate
+it without inorder also.
+
+void createPreorder(int pre[], int n)
+{
+    stack stk;
+    Node *t;
+    int i=0;
+    root=(struct Node*) malloc (sizeof(struct Node));
+    root->data=pre[i++];
+    root->left=root->right=NULL;
+    p=root;
+    while(i<n)
+    {
+        if(pre[i]<p->data)
+        {
+            t=(struct Node*) malloc (sizeof(struct Node));
+            t->data=pre[i++];
+            t->left=t->right=NULL;
+            p->left=t;
+            push(&stk, p);
+            p=t;
+        }
+        else
+        {
+            if(pre[i]>p->data && pre[i]<stackTop(stk)->data)
+            {
+                t=(struct Node*) malloc (sizeof(struct Node));
+                t->data=pre[i++];
+                t->left=t->right=NULL;
+                p=t;
+            }
+            else
+            {
+            p=pop(&stk);
+            }
+        }
+    }
+}
+
+Time taken for creating BST through preorder=O(n)
+
+****DRAWBACKS OF BST:
+---------------------
+
+1. The height of a BST can be as minimum as logn and as maximum as n for n keys. It depends upon how keys are inserted in BST.
+   There is no control on the height of a BST, it all depends upon order of insertion. So, we need to control the height of the tree.
+   These Trees are known as AVL trees.
+   AVL Trees are height balanced BST.
