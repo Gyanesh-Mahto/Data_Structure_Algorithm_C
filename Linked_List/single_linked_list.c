@@ -48,7 +48,7 @@ void create1(int B[], int n)
 
 }
 
-void display(struct Node *p)
+void display(struct Node *p)    //Function for displaying the data in nodes
 {
     while(p)
     {
@@ -58,7 +58,7 @@ void display(struct Node *p)
     };
 }
 
-void recursive_display(struct Node *p)
+void recursive_display(struct Node *p)      //Function for recursive display of data in nodes
 {
     if(p)
     {
@@ -68,7 +68,7 @@ void recursive_display(struct Node *p)
     }
 }
 
-void reverse_recursive_display(struct Node *p)
+void reverse_recursive_display(struct Node *p)      //reverse recursive display function
 {
     if(p)
     {
@@ -108,7 +108,7 @@ else
 return(second_method_recursive_count(p->Next)+1);
 }
 
-int sum_of_all_elements(struct Node *p)
+int sum_of_all_elements(struct Node *p)     //Function for sum of all elements in a node
 {
     int sum=0;
     while(p)
