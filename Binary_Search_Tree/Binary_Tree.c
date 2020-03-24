@@ -87,7 +87,7 @@ struct Node* Inorder_Predecessor(struct Node *p)
     return p;
 }
 
-struct Node* Inorder_Successor(struct Node *p)
+struct Node* Inorder_Successor(struct Node *p)      
 {
     while(p && p->Left_Smaller!=NULL)
     {
@@ -96,7 +96,7 @@ struct Node* Inorder_Successor(struct Node *p)
     return p;
 }
 
-struct Node* Delete(struct Node* t, int key)
+struct Node* Delete(struct Node* t, int key)    //Deleting a Node in a BST
 {
     struct Node *q;
     if(t==NULL)
