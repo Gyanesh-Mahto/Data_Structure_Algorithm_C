@@ -1,13 +1,13 @@
 #include "myHeader.h"
 
-struct Node
+struct Node         //Node of Binary Search Tree
 {
     struct Node *Left_Smaller;
     int data;
     struct Node *Right_Greater;
 }*Root=NULL;
 
-void display_Inorder(struct Node *Root)
+void display_Inorder(struct Node *Root)     //Display-->Inorder
 { 
     if(Root)
     {
@@ -22,7 +22,7 @@ void display_Inorder(struct Node *Root)
     }
 }
 
-void Insert(int key)
+void Insert(int key)        //Inserting element in BST
 {
     struct Node *p, *q, *r;
     r=Root;
@@ -54,7 +54,7 @@ void Insert(int key)
     q->Right_Greater=r;
 }
 
-struct Node* Search(struct Node* t, int key)
+struct Node* Search(struct Node* t, int key)    //Searching Node in BST
     {
         while(t!=NULL)
         {
@@ -68,7 +68,7 @@ struct Node* Search(struct Node* t, int key)
         return NULL;
     }
 
-int Height(struct Node *p)
+int Height(struct Node *p)      //Height of BST
 {
     int left_subtree_height, right_subtree_height;
     if(p==NULL)
