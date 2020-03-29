@@ -21,6 +21,12 @@ int main()
         printf("%d ", A[i]);
     }
     printf("\n");
+    printf("Address:\n");
+    for(int i=0; i<ele1; i++)
+    {
+        printf("%u ", &A[i]);   //2839941664 2839941668 2839941672 2839941676 2839941680
+    }
+    printf("\n");
     for(int i=0; i<ele2; i++)
     {
         printf("%d ", B[i]);
