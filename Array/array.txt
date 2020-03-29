@@ -1,0 +1,112 @@
+1. What is an Array?
+2. Declaring and Initialiing an Array.
+3. Accessing Array.
+
+1. What is an Array?
+---------------------
+-> Array is a collection of elements and all the elements are of the same types.
+So, Array is a collection of similar data elements grouped under 1 name.
+
+Syntax:
+--------
+Datatype Variable_name[size];
+
+Example:
+int A[5];   //Here 5 elements of int datatype can be stored.
+If each byte occupies 4 bytes of memory then, the memory will be occupied as follows:
+
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+    ---------------------
+ A  |   |   |   |   |   |
+    ---------------------
+      0   1   2   3   4  <-----Index
+
+int x=10;  <---Scalar Variable since it has only magnitude and single valued variable.
+
+int A[5];  <---Vector Variable since it has magnitude as well as Dimension and multiple variables.
+
+A[2]=15;    <--Using name and index we can access any integers or elements in an Array.
+
+2. Declaring and Initialiing an Array:
+--------------------------------------
+-->int A[5];   //Declaration of an Array with datatype int with size: 5
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  |   |   |   |   |   |
+    ---------------------
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+-->since, this is only decalaration and Array is not initialized, the value inside Array will be 
+Garbage value.
+
+-->int A[5]={2,4,6,8,10};  //Declaration with Initialization of an Array.
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 2 | 4 | 6 | 8 | 10|   <----Here, Array of size 5 is created at run-time and value will be
+    ---------------------        initialized 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+-->int A[5]={2,4}; //Declaration with Initialization of few Elements.
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 2 | 4 | 0 | 0 | 0 |   <----Here, Array of size 5 is created at run-time and only 2 values
+    ---------------------        will be assigned and remaining spaces will be assigned 0. 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+-->int A[5]={0};  ////Declaration with Initialization of an Array with all elements as 0.
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 0 | 0 | 0 | 0 | 0 |   <----Here, Array of size 5 is created at run-time and all values
+    ---------------------        will be assigned 0. 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+-->int A[]={2,4,6,8,10};  //Initialization of an array without mentioning size.
+Depending upon the no. of elements we have mentioned in the initialization list, the array size
+will be the same as that one. So, Array of size 5 will be created and all values will be assigned.
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 2 | 4 | 6 | 8 | 10|   <----Here, Array of size 5 is created at run-time and all values
+    ---------------------        will be assigned as mentioned in initialization list. 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+
+3. Accessing Array:
+--------------------
+
+int A[5]={2,4,6,8,10};
+Here, we have an array of size 5 with initialization list of values. So, during run-time, Array
+will be created like this:
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 2 | 4 | 6 | 8 | 10|   <----Here, Array of size 5 is created at run-time and all values
+    ---------------------        will be assigned as mentioned in initialization list. 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+-->For printing any value:
+----------------------------
+
+printf("%d", A[0]); //Prints the value at index 0.
+printf("%d", A[1]); //Prints the value at index 1.
+
+So, we can access all elements by just changing the index.
+
+-->Traversing through the Array. (Traversing means visiting the arrays.)
+-------------------------------------------------------------------------
+for(int i=0; i<5; i++)
+{
+ printf("%d", A[i]); //Prints the value at index i.   
+}
+
+-->Accessing Array elements methods:
+-------------------------------------
+printf("%d", A[2]); //Prints the value at index 2.
+printf("%d", 2[A]); //Prints the value at index 2.
+
+Using pointer arithmetic also we can access the array elements:
+---------------------------------------------------------------
+printf("%d", *(A+2)); //Prints the value at index 2. 
