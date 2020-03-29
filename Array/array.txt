@@ -110,3 +110,49 @@ printf("%d", 2[A]); //Prints the value at index 2.
 Using pointer arithmetic also we can access the array elements:
 ---------------------------------------------------------------
 printf("%d", *(A+2)); //Prints the value at index 2. 
+
+/////////////////////////////////////////////////////////////////////////////////////
+--->Static vs Dynamic Arrays:
+-----------------------------
+Static Array means the size of an array is static and Dynamic Array means the size of an array
+is Dynamic.
+Once an Array is created, it's size can't be modified.
+
+Static Array:
+-------------
+Once an Array is created, it's size can't be modified.
+Example:
+int main()
+{
+int A[5];
+}
+So, here an array of size 5 will be created in stack section of RAM memory as an activation
+record of main function in RAM.
+It is static because the size of Array is decided at compile time, though the memory will be
+allocated during run-time only. Definitely, the size of an array is to be decided at compile
+time in C language.
+
+In C language, when we are mentioning size of an array, it must be a constant value. It can't be
+variable. But in C++ we can create array of any size at run-time. It will be created in stack
+only.
+
+Example:
+int main()
+{
+    int n;  //size
+    cin>>n; 
+    int A[n];   //size is decided at run-time in C++.
+}
+
+Dynamic Array:
+--------------
+->Array which is created inside heap, whose type and size is decided at run-time.
+->For accessing anything in Heap, we must have pointer.
+
+Example:
+int main()
+{
+int A[5];
+int *p; //p is also a variable which will get memory assigned in stack section only.
+p=(int*)malloc(sizeof(int)*5);  //So, array with size of 5 int will be created in Heap and p will
+}
