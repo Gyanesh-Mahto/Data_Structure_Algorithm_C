@@ -16,33 +16,33 @@ int main()
     ele4=sizeof(D)/sizeof(D[0]);    //Finding the size of Array D
     ele5=sizeof(E)/sizeof(E[0]);    //Finding the size of Array E
 
-    for(int i=0; i<ele1; i++)
+    for(int i=0; i<ele1; i++)   //Printing all the elements in Array A
     {
         printf("%d ", A[i]);
     }
     printf("\n");
     printf("Address:\n");
-    for(int i=0; i<ele1; i++)
+    for(int i=0; i<ele1; i++)   //Printing the address of memory occupied by Array A in Stack section of RAM
     {
         printf("%u ", &A[i]);   //2839941664 2839941668 2839941672 2839941676 2839941680
     }
     printf("\n");
-    for(int i=0; i<ele2; i++)
+    for(int i=0; i<ele2; i++)   //Printing all the elements in Array B
     {
         printf("%d ", B[i]);
     }
     printf("\n");
-    for(int i=0; i<ele3; i++)
+    for(int i=0; i<ele3; i++)   //Printing all the elements in Array C
     {
         printf("%d ", C[i]);
     }
     printf("\n");
-    for(int i=0; i<ele4; i++)
+    for(int i=0; i<ele4; i++)   //Printing all the elements in Array D
     {
         printf("%d ", D[i]);
     }
     printf("\n");
-    for(int i=0; i<ele5; i++)
+    for(int i=0; i<ele5; i++)   //Printing all the elements in Array E
     {
         printf("%d ", E[i]);
     }
