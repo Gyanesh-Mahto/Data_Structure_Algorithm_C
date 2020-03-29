@@ -10,11 +10,11 @@ int main()
     int D[5]={0};       //0 0 0 0 0
     int E[]={1,2,3,4,5,6,7,8};  //1 2 3 4 5 6 7 8
     int ele1, ele2, ele3, ele4, ele5;
-    ele1=sizeof(A)/sizeof(A[0]);
-    ele2=sizeof(B)/sizeof(B[0]);
-    ele3=sizeof(C)/sizeof(C[0]);
-    ele4=sizeof(D)/sizeof(D[0]);
-    ele5=sizeof(E)/sizeof(E[0]);
+    ele1=sizeof(A)/sizeof(A[0]);    //Finding the size of Array A
+    ele2=sizeof(B)/sizeof(B[0]);    //Finding the size of Array B
+    ele3=sizeof(C)/sizeof(C[0]);    //Finding the size of Array C
+    ele4=sizeof(D)/sizeof(D[0]);    //Finding the size of Array D
+    ele5=sizeof(E)/sizeof(E[0]);    //Finding the size of Array E
 
     for(int i=0; i<ele1; i++)
     {
