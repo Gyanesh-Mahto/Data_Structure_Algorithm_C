@@ -144,10 +144,10 @@ int main()
     int A[n];   //size is decided at run-time in C++.
 }
 
-Dynamic Array:
---------------
+--->Memory Allocation in Heap:
+-------------------------------
 ->Array which is created inside heap, whose type and size is decided at run-time.
-->For accessing anything in Heap, we must have pointer.
+->For accessing anything in Heap, we must have pointer, Since, we can't access heap memory directly
 
 Example:
 int main()
@@ -155,4 +155,94 @@ int main()
 int A[5];
 int *p; //p is also a variable which will get memory assigned in stack section only.
 p=(int*)malloc(sizeof(int)*5);  //So, array with size of 5 int will be created in Heap and p will
+                                //point to that memory.
+....
+....
+....
+free(p);  //If the memory in heap is not required, then we must free that memory to avoid memory
+}         //leak, Since, if we don't free or delete that occupied unused memory, then it will cause
+          //memory leak.
+We will get memory in heap when we use 'malloc' in C or 'new' in C++.
+in C++:
+p=new int[5]; //C++
+
+If the memory in heap is not required, then we must free that memory to avoid memory leak, Since, 
+if we don't free or delete that occupied unused memory, then it will cause memory leak. Following
+are the methods of deallocation:
+
+-->In C:
+free(p)
+
+-->In C++:
+delete []p;
+
+--->Accessing memory in heap:
+-------------------------------
+int main()
+{
+int A[5];
+int *p;
+p=(int*)malloc(sizeof(int)*5);
+
+p[0]=2;
+
+free(p);  //If the memory in heap is not required, then we must free that memory to avoid memory
 }
+
+With the help of pointers we can access the memory in heap section:
+p[0]=2;
+Here p will have the address of first element of array allocated in heap.
+
+Stack      Heap
+ P        0   1   2   3   4  <-----Index
+-----   ---------------------
+|100|-->| 2 |   |   |   |   |   <----This memory has been allocated in heap section of memory
+-----   ---------------------         
+         100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+So, pointer acts as a name of array.
+
+--->NOTE:Whether Array is created in stack or Array is created in heap, Once, Array with some
+size is created, It can't be resized again or it's size can't be changed directly.
+There is some other way for resizing the array. But that is also possible in heap section only
+and not in Stack section. We can't resize same array but with some alternate ways we can acheive
+resizing the array.
+
+Dynamic Arrays:
+---------------
+int *p=(int*)malloc(sizeof(int)*5);
+
+Here, already we have an array of size 5 created in Heap and pointer p is pointing to that array.
+Now, suppose, size of 5 is not sufficient and we require larger size array, then one method for
+increasing the size is as follows:
+
+->Take 1 more pointer i.e. For here q and create a new array of required larger size.
+
+int *q=(int*)malloc(sizeof(int)*n); //Here n can be any size depend upon requirement.
+
+->Now transfer all elements from first pointer array to newly created pointer's array:
+
+for(int i=0; i<5; i++)
+{
+  q[i]=p[i];
+}
+We can also use memcopy function also to copy elements from 1 array to another.
+
+->Make first pointer point to the newly created pointer's array but before that delete or free-up
+the memory occupied by first pointer array:
+
+free(p);
+
+->Make first Make first pointer point to the newly created pointer's array:
+i.e. For here make p point to q:
+
+p=q;
+
+->Remove second pointer since First pointer is pointing to newly created array:
+
+q=NULL;
+
+Q] Why the array size can't be grown?
+->Because the memory for the array should be contigous and we don't know wether the consecutive
+location of memory after array is free or not. That is the reason we say that Array size can't be
+increased or regrown.
