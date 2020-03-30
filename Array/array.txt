@@ -246,3 +246,183 @@ Q] Why the array size can't be grown?
 ->Because the memory for the array should be contigous and we don't know wether the consecutive
 location of memory after array is free or not. That is the reason we say that Array size can't be
 increased or regrown.
+
+////////////////////////////////////////////////////////////////////////////////////
+2D Arrays:
+----------
+->In Programming Languages we have multi-dimensional arrays. We can have 1-dimensional array,
+2-dimensional array or 3-dimensional array, but the language allows us to have n-dimensional
+arrays.
+->Most commonly used array is 2D Array which is mostly used for implementing Matrices or for
+tabular data.
+
+-->How to create 2D Arrays in C:
+--------------------------------
+There are 3 methods for creating 2D Arrays:
+
+1st Method:
+===========
+Normal Declaration of 2D arrays alongwith name of an array, Datatype of an array and Dimensions.
+
+int A[3][4];
+
+So, we visualize that an Array of size 3X4 is created in main memory i.e 3 Rows and 4 Columns.
+
+        0   1   2   3
+  A   -----------------
+    0 |   |   |   |   |
+      -----------------
+    1 |   |   |   |   |
+      -----------------
+    2 |   |   |   |   |
+      -----------------
+A 2D array with 3 Rows and 4 Columns. Indices will be 0,1,2 for rows and 0,1,2,3 for columns.
+We represent 2D array in form of rectangle but memory allocated for 2D array will be linear only.
+
+    -----------------------------
+    |      |      |      |      |
+    |      |      |      |      |
+    |100   |104   |108   |112   |
+    -----------------------------     Address: 100 - 144
+    |      |      |      |      |
+    |      |      |      |      |
+    |116   |120   |124   |128   |
+    -----------------------------
+    |      |      |      |      |
+    |      |      |      |      |
+    |132   |136   |140   |144   |
+    -----------------------------
+This means in real the memory will be allocated like a single dimension array with 3*4=12 integers.
+So, compiler allows us to access that single dimensional array in form of 2D array with rows and
+columns.
+
+-->Accessing elements in 2D arrays:
+-----------------------------------
+Following values will be stored in 2D array as follows:
+A[1][2]=15
+    0       1       2     3
+  -----------------------------
+  |      |      |      |      |
+0 |      |      |      |      |
+  |100   |104   |108   |112   |
+  -----------------------------     Address: 100 - 144
+  |      |      | 15   |      |
+1 |      |      |      |      |
+  |116   |120   |124   |128   |
+  -----------------------------
+  |      |      |      |      |
+2 |      |      |      |      |
+  |132   |136   |140   |144   |
+  -----------------------------
+
+-->Declaration and Initialization of 2D arrays:
+------------------------------------------------
+int A[3][4]={{1,2,3,4}, {5,6,7,8}, {9,10,11,12}};
+So a 2D array with 3 rows and 4 columns can be initialized with elements as mentioned in above
+example.
+
+Here also, this 2D array will be initialized in stack section of memory only.
+
+2nd Method:
+===========
+-> We can take an "array of pointers"
+
+int *p[3];  <---This is an array of integer pointers.
+
+Actually, p is an array of 3 integer pointers here. Now it will act as row. And, further arrays
+will be created in heap section of memory.
+
+    p           0     1       2     3
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+0 |      |--> |     |      |      |     |
+  |100   |    ---------------------------
+  --------    --------------------------- 
+  |      |    |     |      |      |     |
+1 |      |--> |     |      |      |     |
+  |104   |    ---------------------------
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+2 |      |--> |     |      |      |     |
+  |108   |    ---------------------------
+  --------    
+So, this is nothing but Array of Array of Arrays. So, we have 3 arrays(pointer) pointing to 
+those 3 arrays(of 4 columns) and togerher they form 2D arrays.
+Syntax for creating 2D array with "array of pointers".
+
+int*p[3];
+p[0]=(int*)malloc(sizeof(int)*4);
+p[1]=(int*)malloc(sizeof(int)*4);
+p[2]=(int*)malloc(sizeof(int)*4);
+
+So, memory of all those 3 arrays will be created in heap and all those arrays will be pointed
+by arrays of p present in Stack section of memory.
+->Elements can be stored in this array as same as 2D array discussed in 1st method like as follows:
+p[1][2]=15;
+
+    p           0     1       2     3
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+0 |      |--> |     |      |      |     |
+  |100   |    ---------------------------
+  --------    --------------------------- 
+  |      |    |     |      |  15  |     |
+1 |      |--> |     |      |      |     |
+  |104   |    ---------------------------
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+2 |      |--> |     |      |      |     |
+  |108   |    ---------------------------
+  --------    
+
+3rd Method:
+===========
+-> We can use double pointer for creating 2D arrays. All arrays will be created in heap section
+of memory as follows:
+
+-->Declaration and Initialization of 2D array with double pointers:
+-------------------------------------------------------------------
+int **p;  <---p is a double pointer which is created in stack section of memory.
+p=(int*)malloc(sizeof(int*)*3); <--Array of pointers of type integer.
+Here, pointer p is pointing to 3 arrays of pointers which has been created in heap.
+
+p[0]=(int*)malloc((sizeof(int)*4));
+p[1]=(int*)malloc((sizeof(int)*4));
+p[2]=(int*)malloc((sizeof(int)*4));
+
+So, after above declaration, array will look like as below:
+
+p
+----
+|  |---|
+|  |   |
+----   |         0     1       2     3
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+0 |      |--> |     |      |      |     |
+  |100   |    ---------------------------
+  --------    --------------------------- 
+  |      |    |     |      |      |     |
+1 |      |--> |     |      |      |     |
+  |104   |    ---------------------------
+  --------    ---------------------------
+  |      |    |     |      |      |     |
+2 |      |--> |     |      |      |     |
+  |108   |    ---------------------------
+  --------    
+
+Here entire structure is in heap now. Only double pointer p is in stack section of memory.
+
+-->Accessing elements in 2D array:
+---------------------------
+The 2D array can be accessed using nested 2 for loops:
+
+for(int i=0; i<3; i++)
+{
+  for(int j=0; j<4; j++)
+  {
+    p[i][j]=?(Any_Value)
+  }
+}
+-->This will help to traverse through all elements in 2D array row by row.
+
