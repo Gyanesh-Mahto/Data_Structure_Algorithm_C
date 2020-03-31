@@ -425,4 +425,103 @@ for(int i=0; i<3; i++)
   }
 }
 -->This will help to traverse through all elements in 2D array row by row.
+///////////////////////////////////////////////////////////////////////////////////////////
+Array representation in a compiler:
+-----------------------------------
+Q] How a compiler manages or handles an array and what are the problems compiler faces while
+managing an array?
 
+-->For understanding these things, we will take help of a scalar variable A.
+-->In our programs we use variable like int x=10; but when compiler converts this variable in 
+machine code, then machine code will not have variable names.
+So, basically, machine code refers the location with address and not name. Then compiler has to
+convert name into address.
+But memory to a variable is allocated at execution or run-time. So, how a compiler will write down
+the address at compile time. This is an issue.
+Here, we have an array A which is already initialized in our program.
+-->int A[5]={2,4,6,8,10};  //Declaration with Initialization of an Array.
+
+      0   1   2   3   4  <-----Index
+    ---------------------
+ A  | 2 | 4 | 6 | 8 | 10|   <----Here, Array of size 5 is created at run-time and value will be
+    ---------------------        initialized 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+
+During execution memory will be allocated for array and elements will be stored in corresponding
+location. Now, if we write A[3]=10; then we want to store data as follows:
+
+Name of an Array
+|     0   1   2   3   4  <-----Index
+|   ---------------------
+ A  | 2 | 4 | 6 | 10 | 10|   <----Here, Array of size 5 is created at run-time and value will be
+    ---------------------        initialized 
+  100 104 108 112 116  120  <--Memory occupied contiguously by Array.
+  L0   L1  L2  L3  L4  L5  <--Base address of an array
+Here L0 - L5 is base address of an array.
+
+then this statement in our program A[3]=10; needs to be converted in machine code which is
+referring to address 116. So, compiler has to refer to that location i.e 116.
+So, how this code will be converted to machine code:
+So, compiler needs address of location:
+But in compile time address can't be known. So, compiler will write down formula for obtaining
+that address. So, How formula can be obtained? referring below figure:
+
+Name of an Array
+|     0   1   2   3   4  <-----Index
+|   ---------------------
+ A  | 2 | 4 | 6 | 10 | 10|   <----Here, Array of size 5 is created at run-time and value will be
+    ---------------------        initialized 
+     100 104 108 112 116    <--Memory occupied contiguously by Array.
+  L0   L1  L2  L3  L4  L5  <--Base address of an array
+Here L0 - L5 is base address of an array. So, Array name can be called as base address of location.
+So, any index or location in an array can be accessed with base address of an array.
+A[3]=10;
+
+Address(A[i])=L0+i*sizeof(Datatype);  <---Formula for obtaining address of A of i. i is index
+
+Address(A[3])= 100+3*sizeof(int); //Here, 100 is L0.
+Address(A[3])=100+12=112;
+
+So, compiler uses this formula: Address(A[i])=L0+i*sizeof(Datatype);
+for obtaining any address of index i.
+So, base address will be updated once the program starts running and once the memory of an array
+is allocated. So, the address of particular location is known during run-time and it is updated
+during run-time and it is called "Data-Binding".
+This address of index is also called relative address.
+
+--->In C/C++ index is staring from 0 only because count of aritmetic operation for finding address
+in an array is less compared to index starting from 1. So, in C/C++ index is staring from 0 only
+
+Formula and aritmetic comparison:
+---------------------------------
+Address(A[i])=L0+i*sizeof(Datatype);
+Address(A[i])=L0+i*w; //w is sizeof(Datatype) <---Index starting from 0
+Address(A[i])=L0+i-1*w; <--Index staring from 1. Aritmetic operation increases due to(-1) in this
+                           formula.
+
+2D Array representation in a compiler:
+-----------------------------------
+Q] How a compiler manages or handles an array and what are the problems compiler faces while
+managing 2D array?
+--> There are 2 methods for finding address by a compiler:
+1. Row Major Mapping:
+Add(A[i][j])=L0+[i*n+j]*w;  //L0->Base address; i->Row; j->Column; w->sizeof(Datatype); n->no. of elements in a rows
+
+2. Column Major Mapping:
+Add[A[i][j]]=L0+[j*m+i]*w;  //L0->Base address; i->Row; j->Column; w->sizeof(Datatype); m->no. of elements in a column
+
+-->In terms of time, both formula are equally efficient.
+
+Row Major Mapping for 4D arrays:
+--------------------------------
+A([d1][d2][d3][d4]):<--4D Array:
+
+Add(A[d1][d2][d3][d4])=L0+[i1*d2*d3*d4+i2*d3*d4+i3*d4+i4]*w
+L----------------->R
+
+Column Major Mapping for 4D arrays:
+--------------------------------
+A([d1][d2][d3][d4]):<--4D Array:
+
+Add(A[d1][d2][d3][d4])=L0+[i4*d1*d2*d3+i3*d1*d2+i2*d1+i1]*w
+L<------------------R
