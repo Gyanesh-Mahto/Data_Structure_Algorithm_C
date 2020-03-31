@@ -1,5 +1,5 @@
 //Creating and displaying a linked list.
-#include"myheader.h"
+#include"myHeader.h"
 
 struct Node     //Creating a structure for a Node
 {
