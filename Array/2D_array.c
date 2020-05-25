@@ -17,7 +17,7 @@ int main()
 
     //2nd Method: Array of pointers
     int *B[3];  //It will be created inside stack section of memory.
-    B[0]=(int*)malloc(sizeof(int)*4);   //This array will be created inside heap section of memory.This array will be created in heap.
+    B[0]=(int*)malloc(sizeof(int)*4);   //This array will be created inside heap section of memory.
     B[1]=(int*)malloc(sizeof(int)*4);   //This array will be created inside heap section of memory.
     B[2]=(int*)malloc(sizeof(int)*4);   //This array will be created inside heap section of memory.
 
