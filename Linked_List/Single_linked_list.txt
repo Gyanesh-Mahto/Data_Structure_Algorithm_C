@@ -39,7 +39,7 @@ struct Node *p; //Here the memory will be allocated in stack OR this pointer is 
 
 Now we have to create node in heap section of the memory, So, we will use DMA concept:
 
-p=(struct Node*)malloc(sizeof(struct Node));        //
+p=(struct Node*)malloc(sizeof(struct Node));
 p->pointer
 (struct Node*)->Typecasting to struct Node* type
 
@@ -58,7 +58,7 @@ Summary:
 struct Node
 {
 int data;
-struct Node *p;
+struct Node *Next;
 };
 p=(struct Node*)malloc(sizeof(struct Node));
 p->data=10;//(value)
