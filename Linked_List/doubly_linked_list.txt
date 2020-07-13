@@ -1,0 +1,65 @@
+Doubly Linked List:
+-------------------
+--> In singly linked list we had a node with pointer to next node. But in doubly linked list we have a node with pointer to next Node as well
+as previous Node.
+
+->So, From a node, we can go forward with Next node as well as backward with Previous node. So, we can access the list in doubly linked list
+bidirectionally. We can traverse them in either direction.
+
+    
+        Node1                Node2               Node3            Node4             Node5   
+  head  _____________     _____________      _____________     _____________     _____________   
+ ____   |   |   |   |---->|   |   |   |----->|   |   |   |---->|   |   |   |---->|   |   |   |
+|    |  |\0 |   |34 |     |20 |   |44 |      |34 |   |54 |     |44 |   |92 |     |54 |   |\0 |
+| 20 |->|   |   |   |<----|   |   |   |<-----|   |   |   |<----|   |   |   |<----|   |   |   |
+ ----   -------------     -------------     --------------     -------------     -------------
+        20                 34                44                54                92 
+
+We can understand practical example of doubly linked list with a browser. In a browser, we have clicked some links and gone deeper and deeper,
+then we can go forward as well as backward pages also. Similarly in our contact list of phone, we can scroll up and down as they are stored as
+doubly linked list. 
+
+--> Defining a Node in a doubly linked list:
+----------------------------------------------
+struct Node
+{
+    struct Node *Prev;
+    int data;
+    struct Node *Next;
+}*head=NULL;
+
+For creating a new Node:
+------------------------
+struct Node *temp;
+temp=(struct  Node*) malloc(sizeof(struct Node));
+temp->Prev=NULL;
+temp->data=Any_data (Here we have taken 10);
+temp->Next=NULL;
+
+Now a new Node temp is created as shown below:
+    temp           
+_____________   
+|   |   |   |
+| \0| 10| \0|
+|   |   |   |
+-------------
+20           
+
+-> The benefit of using a doubly linked list is that we can traverse in any direction.
+
+-->Inserting a new Node in a doubly linked list:
+------------------------------------------------
+-> There are 2 ways of inserting a new Node in a doubly linked list:
+1. Inserting a new Node before first Node.
+2. Inserting a new Node at any given index.
+
+1. Inserting a new Node before first Node.
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=n;
+    temp->Prev=NULL;
+    temp->Next=head;
+    head->Prev=temp;
+    head=temp;
+Time taken for inserting any node at begin is constant: O(1).
+
+2. Inserting a new Node at any given index.
