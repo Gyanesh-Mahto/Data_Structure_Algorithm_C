@@ -1,0 +1,299 @@
+Circular Linked List:
+---------------------
+What is a circula Linked List with respect to linear linked list?
+->A linked list in which last node will point to first node is called as circular linked list.
+OR
+->A collection of nodes circluarly connected is called as circluar linked list. So, how we will identify which is first node. So, we declare 
+a pointer to node which is head for identifying head node or firs node. So, there is no first node or last node.
+
+What is the benefit of circluar linked list:
+->We can traverse the nodes of linked list circluarly. We will go to fist node and then next node and then next node till last node and then
+again to first node.
+--> There are 2 representation of a circluar linked list:
+-> First representation:
+For Example, Contact list in our smart phone, When we scroll down and when we reach Z, then again contact list starts with A, which is nothing
+but Circular Linked List. That has bi-directional movement but we will be seeing uni-directional movement of circluar linked list.
+
+     -------------------------------------------------------------
+    |                                                             | 
+    |   Node1       Node2       Node3       Node4       Node5     |
+  head  _______     _______     _______     _______     _______   |
+ ____   |  |  |     |  |  |     |  |  |     |  |  |     |  |  |   |
+|    |  | 8|34|---->|3 |44|---->|7 |54|---->|12|92|---->|9 |20|----
+| 20 |->|  |  |     |  |  |     |  |  |     |  |  |     |  |  |
+ ----   -------     -------     -------     -------     -------
+        20          34             44           54      92 
+
+So, It is signly circluar linked list.
+
+-> If a single node which can points to itself, then it is also circluar linked list.
+
+-> A circluar linked list can't be NULL. If it is empty also then also it should be circluar.
+
+--> Second representation of circular linked list to prove that an empty linked list should also be circluar.
+            -------------------------------------------------------
+            |                                                     | 
+        Node1       Node2       Node3       Node4       Node5     |
+  head  _______     _______     _______     _______     _______   |
+ ____   |  |  |     |  |  |     |  |  |     |  |  |     |  |  |   |
+|    |  | 8|34|---->|3 |44|---->|7 |54|---->|12|92|---->|9 |20|----
+| 20 |->|  |  |     |  |  |     |  |  |     |  |  |     |  |  |
+ ----   -------     -------     -------     -------     -------
+        20          34             44           54      92 
+
+-> Here we have only 5 nodes ignoring head node.
+
+-> So, If we have a single node, then that node will point to itself and head node will point to first node.gya
+     -----
+    |     | 
+    |   Node1 
+  head  _______
+ ____   |  |  | 
+|    |  | 8|20|
+| 20 |->|  |  |   
+ ----   -------     
+        20          
+
+-> Now, Empty node will also point to itself:
+
+     -----
+    |     | 
+    |     | 
+  head    |
+ ____     |
+|    |    |
+|    |-----   
+ ----  
+
+--> Display a circluar linked list:
+-----------------------------------
+-> Here, in circluar linked list, we are reaching till last node and then again we are reaching first node. So, when we reach first node again
+then we should stop traversing for displaying circluar linked list. This can be implemented using a do-while loop.
+Program snippet:
+----------------
+
+void display(struct Node* p)
+{
+    do
+    {
+        printf("%d", p->data);
+        p=p->Next;
+    }while(p!=head);
+}
+
+int main()
+{
+    display(head);
+}
+
+-> There is another approach for displaying element in a circluar linked list using recursion:
+
+void display_recursive(struct Node* p)
+{
+    static int flag=1;
+    if(p==head && flag==1)
+    {
+    printf("%d", p->data);
+    ++flag;
+    display(p->Next);
+    }
+    else if(p!=head)
+    {
+    printf("%d", p->data);
+    display(p->Next);
+    }
+}
+
+int main()
+{
+    display(head);
+}
+
+--> Insertion in a circular linked list:
+-----------------------------------------
+
+            -------------------------------------------------------
+            |                                                     | 
+        Node1       Node2       Node3       Node4       Node5     |
+  head  _______     _______     _______     _______     _______   |
+ ____   |  |  |     |  |  |     |  |  |     |  |  |     |  |  |   |
+|    |  | 8|34|---->|3 |44|---->|7 |54|---->|12|92|---->|9 |20|----
+| 20 |->|  |  |     |  |  |     |  |  |     |  |  |     |  |  |
+ ----   -------     -------     -------     -------     -------
+        20          34             44           54      92 
+
+-> We have labelled our Nodes as: Node1, Node2, Node3, Node4 and Node5.
+-> What are the positions where we can insert our new nodes?
+1. Inserting before first Node (Add at begin)
+2. Inserting at any other position.
+
+->We will try to insert new node first at any other positions:
+1) We will first create new node:
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=Any_data;
+    temp->Next=NULL;
+
+2) Now, we have to point to the node after which we have to insert our new node. For that we will create a new pointer to node which is p;
+struct Node *p;
+and move this pointer to the node after which we have to insert new node.
+Now, we will make temp->Next to point to next node which is right now p->Next.
+and after that we will make p->Next=temp;
+
+->This is same as linear linked list.
+
+Program snippet:
+----------------
+void insert_at_any_position(int pos, int x)
+{
+    struct Node *temp;
+    struct Node* p=head;
+    for(int i=0; i<pos-1; i++)
+    p=p->Next;
+
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=x;
+    temp->Next=p->Next;
+    p->Next=temp;
+}
+
+Analysis: Time complexity: Best case(Insert at begin): O(1) - Minimum time.
+                           Worst case(Insert at last): O(n) - Maximum time.
+
+--> Now we will see how to insert a new Node before first Node.
+1) We will first create new node and it should point to head:
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=Any_data;
+    temp->Next=head;
+
+2) Now last Node should also point to the first Node which is new Node(temp). So, we will have to reach last Node. So, for that we will take 
+a pointer to Node which is p and we will make it to point to last node:
+
+struct Node* p;
+p=head;
+while(p->Next!=head)
+{
+    p=p-Next;
+}
+p->Next=temp;
+//head=temp; //This is optional. No need to make head point to new first.
+-> So, Inserting before head and after last node is same.
+
+Program snippet:
+void insert_at_begin(int x)
+{
+    struct Node *temp;
+    struct Node *p;
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=x;
+    temp->Next=head;
+
+    p=head;
+    while(p->Next!=head)
+    {
+        p=p-Next;
+    }
+    p->Next=temp;
+    //head=temp;
+}
+
+Program Snippet for combining both:
+void insert(int pos, int x)
+{
+    struct Node *temp;
+    struct Node *p;
+    if(pos==0)
+    {
+        temp=(struct Node*)malloc(sizeof(struct Node));
+        temp->data=x;
+        
+        if(head==NULL)
+        {
+            head=temp;
+            head->Next=head;
+        }
+        else
+        {
+            p=head;
+            while(p->Next!=head)
+            {
+                p=p-Next;
+            }
+            p->Next=temp;
+            temp->Next=head;
+            head=temp;
+        }
+    }
+    else
+    {
+        p=head;
+        for(int i=0; i<pos-1; i++)
+        p=p->Next;
+
+        temp=(struct Node*)malloc(sizeof(struct Node));
+        temp->data=x;
+        temp->Next=p->Next;
+        p->Next=temp;
+    }       
+}
+
+--->Finding Length of circular linked list:
+-------------------------------------------
+Program Snippet:
+-----------------
+int Length(struct Node *h)
+{
+    struct Node *p;
+    int len=0;
+    p=head;
+    do
+    {
+       ++len;
+       p=p->Next;
+    } while (p!=head);
+    return len;
+}
+
+--->Deletion of a node in a circular linked list:
+-------------------------------------------------
+->There are 2 cases for deletion of a node in a circular linked list:
+1. Deleting a head node.
+2. Deleting a node from a agiven position.
+
+1. We will check deletion of a head node. So, it requires following steps:
+Program Snippet:
+---------------- 
+void delete_head(struct Node *h)
+{
+struct Node *p, *q;
+p=head;
+q=head;
+while(p->Next!=head)
+{
+    p=p->Next;
+}
+head=head->Next;
+p->Next=head;
+delete(q);
+}
+
+2. Deletion of a node from a give position:
+--------------------------------------------
+For this we would require 2 pointers to Node as first pointer(p) will point to the Node which needs to be deleted and another pointer(q) which 
+will point to the Node before the Node which is going to be deleted.
+Program Snippet:
+----------------
+void delete_at_given_position(struct Node *h, int pos)
+{
+    struct Node *p, *q;
+    p=q=head;
+    while(int i=0; i<pos-1; i++)
+    {
+        q=p;
+        p=p->Next;
+    }
+    q->Next=p->Next;
+    free(p);
+}
+
+Analysis: Best case: Delete node after head node: O(1)
+          Worst case: Delete head node or any other node after first Node: O(n)
