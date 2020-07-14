@@ -38,7 +38,6 @@ int Length(struct Node *h)
         len++;
         p=p->Next;
     }
-    printf("Length: %d\n", len);
     return len;
 }
 
@@ -58,31 +57,52 @@ void insert(struct Node *h, int pos, int n)
         head->Prev=temp;
         head=temp;
     }
-    else if(pos>1)
+    else
     {
+        for(int i=0; i<pos-1; i++)
+            p=p->Next;
         temp=(struct Node*)malloc(sizeof(struct Node));
         temp->data=n;
-        for(int i=1; i<pos-1; i++)
-        {
-            p=p->Next;
-        }
-        temp->Next=p->Next;
         temp->Prev=p;
+        temp->Next=p->Next;
         if(p->Next)
-        p->Next->Prev=temp;
+            p->Next->Prev=temp;
         p->Next=temp;
     }
-    else if(pos==Length(head))
-    {
-        temp=(struct Node*)malloc(sizeof(struct Node));
-        temp->Next=temp->Prev=NULL;
-        while(p)
-        {
-            p=p->Next;
-        }
-        temp->Prev=p;
-        p->Next=temp;
+}
 
+void delete(struct Node *h, int pos)
+{
+    if(pos<0 || pos>Length(head))
+    exit(1);
+    if(pos==0)
+    {
+        struct Node *p, *q;
+        q=p=head;
+        q=q->Next;
+        head=q;
+        q->Prev=NULL;
+        free(p);
+    }
+    else
+    {
+    struct Node *p, *q;
+    q=p=head;
+    for(int i=0; i<pos; i++)
+    {
+        q=p;
+        p=p->Next;
+    }
+    if(p->Next)
+    {
+    p->Next->Prev=q;
+    q->Next=p->Next;
+    }
+    else
+    {
+        q->Next=NULL;
+    }
+    free(p);
     }
 }
 
@@ -98,13 +118,34 @@ void Display(struct Node *h)
     printf("\n");
 }
 
+
+void reverse(struct Node *p)
+{
+    struct Node *temp;
+    p=head;
+    while(p!=NULL)
+    {
+        temp=p->Next;
+        p->Next=p->Prev;
+        p->Prev=temp;
+        p=p->Prev;
+        
+        if(p!=NULL && p->Next==NULL)
+        head=p;
+    }
+}
+
 int main()
 {
     int A[]={1,2,3,4,5,6,7,8,9};
     create(A, 9);
     Display(head);
     //Length(head);
-    insert(head,8,10);
+    insert(head,0,10);
+    Display(head);
+    delete(head, 9);
     Display(head);
     Length(head);
+    reverse(head);
+    Display(head);
 }
