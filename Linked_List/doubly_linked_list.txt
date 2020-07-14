@@ -63,3 +63,99 @@ _____________
 Time taken for inserting any node at begin is constant: O(1).
 
 2. Inserting a new Node at any given index.
+        for(int i=0; i<pos-1; i++)
+            p=p->Next;
+        temp=(struct Node*)malloc(sizeof(struct Node));
+        temp->data=n;
+        temp->Prev=p;
+        temp->Next=p->Next;
+        if(p->Next)
+            p->Next->Prev=temp;
+        p->Next=temp;
+
+-->Deletion of a Node in a doubly linked list:
+----------------------------------------------
+There are 2 cases of deletion of a Node in a doubly linked list:
+1. Delete first Node.
+2. Delete from a given index.
+
+void delete_head(struct Node *h)
+{
+    struct Node *p, *q;
+    q=p=head;
+    q=q->Next;
+    head=q;
+    q->Prev=NULL;
+    free(p);
+}
+
+2. Delete from a given index.
+void delete_at_index(struct Node *h, int pos)
+{
+    struct Node *p, *q;
+    q=p=head;
+    for(int i=0; i<pos-1; i++)
+    {
+        q=p;
+        p=p->Next;
+    }
+    p->Next->Prev=q;
+    q->Next=p->Next;
+    free(p);
+}
+
+Program Snippet:
+----------------
+void delete(struct Node *h, int pos)
+{
+    if(pos<0 || pos>Length(head))
+    exit(1);
+    if(pos==0)
+    {
+        struct Node *p, *q;
+        q=p=head;
+        q=q->Next;
+        head=q;
+        q->Prev=NULL;
+        free(p);
+    }
+    else
+    {
+    struct Node *p, *q;
+    q=p=head;
+    for(int i=0; i<pos; i++)
+    {
+        q=p;
+        p=p->Next;
+    }
+    if(p->Next)
+    {
+    p->Next->Prev=q;
+    q->Next=p->Next;
+    }
+    else
+    {
+        q->Next=NULL;
+    }
+    free(p);
+    }
+}
+
+---> Reversing a doubly linked list:
+------------------------------------
+
+void reverse(struct Node *p)
+{
+    struct Node *temp;
+    p=head;
+    while(p!=NULL)
+    {
+        temp=p->Next;
+        p->Next=p->Prev;
+        p->Prev=temp;
+        p=p->Prev;
+        
+        if(p!=NULL && p->Next==NULL)
+        head=p;
+    }
+}
