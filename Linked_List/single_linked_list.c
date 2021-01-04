@@ -118,7 +118,7 @@ int sum_of_all_elements(struct Node *p)     //Function for sum of all elements i
     return sum;
 }
 
-int recursive_sum_of_all_elements(struct Node *p)
+int recursive_sum_of_all_elements(struct Node *p)   //Function for recursive sum of all elements
 {
     static int sum=0;
     if(p)
@@ -129,7 +129,7 @@ int recursive_sum_of_all_elements(struct Node *p)
     return sum;
 }
 
-int maximum_valued_element(struct Node *p)
+int maximum_valued_element(struct Node *p)  //Function to find largest element in a list
 {
     int max=0;
     while(p)
@@ -145,7 +145,7 @@ int maximum_valued_element(struct Node *p)
     return max;
 }
 
-int recursive_maximum_valued_element(struct Node *p)
+int recursive_maximum_valued_element(struct Node *p)  //Function to find largest element in a list using recursion
 {
     static int max=0;
     if(p)
@@ -161,7 +161,7 @@ int recursive_maximum_valued_element(struct Node *p)
     }
 }
 
-int search_element(struct Node *p, int key)
+int search_element(struct Node *p, int key)  //Function to find element in a list
 {
     while(p)
     {
@@ -172,7 +172,7 @@ int search_element(struct Node *p, int key)
     }
 }
 
-int recursive_search_element(struct Node *p, int key)
+int recursive_search_element(struct Node *p, int key)  //Function to find element in a list using recursion
 {
     if(p==NULL)
     return NULL;
