@@ -22,26 +22,18 @@ int main()
     cout<<"Index: ";
     cin>>index;
 
-    for(index--; temp>0;)
+    while(temp>0)
     {
-        if(index >= temp)
+        if((index >= temp) || ((index < temp) && (index !=0)))
         {
             sum+=arr[index];
             index--;
             temp--;
         } 
         
-        if((index < temp) && (index !=0))
+        if(index == 0)
         {
             sum+=arr[index];
-            index--;
-            temp--;
-        }
-        
-        if((index == 0) && (flag == false))
-        {
-            sum+=arr[index];
-            flag = true;
             index = 9;
             temp--;
         }
