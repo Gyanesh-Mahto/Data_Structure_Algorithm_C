@@ -1,0 +1,148 @@
+print 0-5 using recursion:
+#include <iostream>
+
+using namespace std;
+int count = 0;
+void fun()
+{
+    cout<<count<<endl;
+    count++;
+    if(count < 5)
+    {
+        fun();   
+    }
+}
+
+int main()
+{
+    fun();
+
+    return 0;
+}
+================================================
+print names n times:
+#include <iostream>
+using namespace std;
+
+void fun(int i, int n)
+{
+    if(i>n)
+    {
+        return;
+    }
+    else
+    {
+        cout<<"Gyanesh"<<endl;
+    }
+    fun(++i, n);
+    
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    fun(1, n);
+
+    return 0;
+}
+=============================================
+Print linearly from 1 to N
+#include <iostream>
+using namespace std;
+
+void fun(int i, int n)
+{
+    if(i>n)
+    {
+        return;
+    }
+    else
+    {
+        cout<<i<<endl;
+    }
+    fun(++i, n);
+    
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    fun(1, n);
+
+    return 0;
+}
+=============================
+Print linearly from N to 1:
+#include <iostream>
+using namespace std;
+
+void fun(int i)
+{
+    if(i<1)
+    {
+        return;
+    }
+    else
+    {
+        cout<<i<<endl;
+    }
+    fun(i-1);
+    
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    fun(n);
+
+    return 0;
+}
+===========================================
+Print linearly from 1 to N by backtracking:
+#include <iostream>
+using namespace std;
+
+void fun(int i, int n)
+{
+    if(i<1)
+    {
+        return;
+    }
+    fun(i-1, n);
+    cout<<i<<endl;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    fun(n, n);
+
+    return 0;
+}
+=====================================================
+Print linearly from N to 1 by backtracking:
+#include <iostream>
+using namespace std;
+
+void fun(int i, int n)
+{
+    if(i>n)
+    {
+        return;
+    }
+    fun(i+1, n);
+    cout<<i<<endl;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    fun(1, n);
+
+    return 0;
+}
