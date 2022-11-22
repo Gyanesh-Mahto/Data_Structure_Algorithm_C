@@ -5,13 +5,13 @@ using namespace std;
 
 int main()
 {
-    char lever;
+    char end;
     bool x1 = false, x2 = false, x3 = false;
     while(1)
     {
         cout<<"Where do you want to drop marble: A or B "<<endl;
-        cin>>lever;
-        switch(lever)
+        cin>>end;
+        switch(end)
         {
             case 'A':
                 cout<<"case A"<<endl;
